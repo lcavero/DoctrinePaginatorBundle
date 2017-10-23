@@ -21,8 +21,7 @@
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "symfony/polyfill-apcu": "^1.0",
-        "symfony/symfony": "3.3.*",
-        "lcavero/doctrinepaginatorbundle": "^1.0@dev"
+        "symfony/symfony": "3.3.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
