@@ -6,8 +6,7 @@
     "type": "symfony-bundle",
     "authors": [
         {
-            "name": "Luis Cavero Martínez",
-            "email": "luiscaverodeveloper@gmailcom"
+            "name": "Luis Cavero Martínez"
         }
     ],
     "autoload": {
