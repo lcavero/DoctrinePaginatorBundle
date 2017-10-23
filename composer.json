@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "LCavero\\DoctrinePaginatorBundle": ""
+            "LCavero\\DoctrinePaginatorBundle\\": ""
         }
     },
     "require": {
