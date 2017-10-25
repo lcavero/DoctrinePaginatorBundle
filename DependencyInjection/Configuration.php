@@ -47,4 +47,12 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias()
+    {
+        return 'lcavero_doctrine_paginator';
+    }
 }
