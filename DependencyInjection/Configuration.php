@@ -45,6 +45,12 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue([0, "false"])->end()
                 ->end()
             ->end()
+            ->arrayNode('search')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('strict_mode')->defaultFalse()->end()
+                ->end()
+            ->end()
         ;
     }
 

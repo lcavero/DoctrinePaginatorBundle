@@ -46,6 +46,7 @@ class Paginator
 
     private $booleanTrueValues;
     private $booleanFalseValues;
+    private $strictMode;
 
     /**
      * @var EntityManager
@@ -56,8 +57,9 @@ class Paginator
      * Paginator constructor.
      * @param array $boolean_true_values
      * @param array $boolean_false_values
+     * @param bool $strict_mode
      */
-    public function __construct(array $boolean_true_values, array $boolean_false_values)
+    public function __construct(array $boolean_true_values, array $boolean_false_values, bool $strict_mode)
     {
         $this->paramRef = 1;
         $this->classRef = 1;
@@ -67,6 +69,7 @@ class Paginator
         $this->associationClasses = [];
         $this->booleanTrueValues = array_map(function ($v){return strval($v);}, $boolean_true_values);
         $this->booleanFalseValues = array_map(function ($v){return strval($v);}, $boolean_false_values);
+        $this->strictMode = $strict_mode;
     }
 
     /**
@@ -429,8 +432,35 @@ class Paginator
                     return $alias . '.' . $key . ' = :' . $reference;
                 }else{
                     // Any other type of field
-                    $this->query->setParameter($reference, '%' . $value . '%');
-                    return $alias . '.' . $key . ' LIKE :' . $reference;
+
+                    // Split value by blanks
+                    $options = preg_split('/\s/', $value);
+
+                    if($this->strictMode == false && (count($options) > 1)){
+                        // There are many possible filters
+                        $sentence = '(';
+
+                        // Adds a filter sentence for each option
+                        for($o = 0; $o < count($options); $o++){
+                            $this->query->setParameter($reference, '%' . $options[$o] . '%');
+                            $sentence .= $alias . '.' . $key . ' LIKE :' .  $reference;
+
+                            if($o < (count($options) -1)){
+                                $sentence .= ' OR ';
+
+                                // Update param reference
+                                $reference = 'prm_ref' . $this->paramRef;
+                                $this->paramRef++;
+                            }
+                        }
+
+                        $sentence .= ')';
+                        return $sentence;
+                    }else{
+                        // Only one filter
+                        $this->query->setParameter($reference, '%' . $value . '%');
+                        return $alias . '.' . $key . ' LIKE :' . $reference;
+                    }
                 }
             }
         }else{

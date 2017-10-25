@@ -27,6 +27,7 @@ class DoctrinePaginatorExtension extends Extension
 
         $container->getDefinition('lcav_doctrine_paginator')->addArgument($config['mapping']['boolean_true_values']);
         $container->getDefinition('lcav_doctrine_paginator')->addArgument($config['mapping']['boolean_false_values']);
+        $container->getDefinition('lcav_doctrine_paginator')->addArgument($config['search']['strict_mode']);
     }
 
     /**
