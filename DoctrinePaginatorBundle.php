@@ -2,12 +2,17 @@
 
 namespace LCavero\DoctrinePaginatorBundle;
 
+use LCavero\DoctrinePaginatorBundle\DependencyInjection\DoctrinePaginatorExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class DoctrinePaginatorBundle extends Bundle
 {
     public function getContainerExtension()
     {
-        return "lcavero_doctrine_paginator";
+        if(null == $this->extension){
+            return new DoctrinePaginatorExtension();
+        }
+
+        return $this->extension;
     }
 }
