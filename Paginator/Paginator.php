@@ -44,6 +44,9 @@ class Paginator
 
     private $associationClasses;
 
+    private $booleanTrueValues;
+    private $booleanFalseValues;
+
     /**
      * @var EntityManager
      */
@@ -51,8 +54,10 @@ class Paginator
 
     /**
      * Paginator constructor.
+     * @param array $boolean_true_values
+     * @param array $boolean_false_values
      */
-    public function __construct()
+    public function __construct(array $boolean_true_values, array $boolean_false_values)
     {
         $this->paramRef = 1;
         $this->classRef = 1;
@@ -60,6 +65,8 @@ class Paginator
         $this->mandatoryGroupByDql = '';
         $this->mandatoryOrderByDql = '';
         $this->associationClasses = [];
+        $this->booleanTrueValues = $boolean_true_values;
+        $this->booleanFalseValues = $boolean_false_values;
     }
 
     /**
@@ -407,9 +414,9 @@ class Paginator
 
                 if($entity_metadata->getTypeOfField($key) == 'boolean'){
                     // Mapping boolean values
-                    if($value == 'false'){
+                    if(in_array($value, $this->booleanFalseValues)){
                         $value = '0';
-                    }else if($value == 'true'){
+                    }else if(in_array($value, $this->booleanTrueValues)){
                         $value = '1';
                     }
 

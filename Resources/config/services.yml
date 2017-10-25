@@ -1,1 +1,3 @@
 services:
+    lcav_doctrine_paginator:
+        class:  LCavero\DoctrinePaginatorBundle\Paginator

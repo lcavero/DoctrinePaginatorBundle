@@ -24,5 +24,8 @@ class DoctrinePaginatorExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->getDefinition('lcav_doctrine_paginator')->addArgument($config['mapping']['boolean_true_values']);
+        $container->getDefinition('lcav_doctrine_paginator')->addArgument($config['mapping']['boolean_false_values']);
     }
 }

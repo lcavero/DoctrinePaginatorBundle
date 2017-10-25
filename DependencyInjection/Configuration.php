@@ -2,6 +2,7 @@
 
 namespace LCavero\DoctrinePaginatorBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,12 +19,32 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('doctrine_paginator');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode = $treeBuilder->root('lcavero_doctrine_paginator')->children();
+        $this->addDoctrinePaginatorSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    /**
+     * addDoctrinePaginatorSection
+     * @param NodeBuilder $builder
+     */
+    protected function addDoctrinePaginatorSection(NodeBuilder $builder)
+    {
+        $builder
+            ->arrayNode('mapping')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->arrayNode('boolean_true_values')
+                    ->prototype('scalar')->end()
+                    ->defaultValue([1, "true"])
+                ->end()
+                ->children()
+                    ->arrayNode('boolean_false_values')
+                    ->prototype('scalar')->end()
+                    ->defaultValue([0, "false"])
+                ->end()
+            ->end()
+        ;
     }
 }
