@@ -401,21 +401,25 @@ class Paginator
                 throw new HttpException(400, 'Wrong search: ' . $key . ' is not a valid field');
             }else{
 
-                // Mapping boolean values
-                if($entity_metadata->getTypeOfField($key) == 'boolean'){
-                    if($value == 'false'){
-                        $value = '0';
-                    }else{
-                        $value = '1';
-                    }
-                }
-
                 // Param reference for alias
                 $reference = 'prm_ref' . $this->paramRef;
                 $this->paramRef++;
 
-                $this->query->setParameter($reference, '%' . $value . '%');
-                return $alias . '.' . $key . ' LIKE :' . $reference;
+                if($entity_metadata->getTypeOfField($key) == 'boolean'){
+                    // Mapping boolean values
+                    if($value == 'false'){
+                        $value = '0';
+                    }else if($value == 'true'){
+                        $value = '1';
+                    }
+
+                    $this->query->setParameter($reference, $value);
+                    return $alias . '.' . $key . ' = :' . $reference;
+                }else{
+                    // Any other type of field
+                    $this->query->setParameter($reference, '%' . $value . '%');
+                    return $alias . '.' . $key . ' LIKE :' . $reference;
+                }
             }
         }else{
             // Filter is looking for an association
