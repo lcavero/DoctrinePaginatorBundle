@@ -65,8 +65,8 @@ class Paginator
         $this->mandatoryGroupByDql = '';
         $this->mandatoryOrderByDql = '';
         $this->associationClasses = [];
-        $this->booleanTrueValues = $boolean_true_values;
-        $this->booleanFalseValues = $boolean_false_values;
+        $this->booleanTrueValues = array_map(function ($v){return strval($v);}, $boolean_true_values);
+        $this->booleanFalseValues = array_map(function ($v){return strval($v);}, $boolean_false_values);
     }
 
     /**
@@ -415,9 +415,14 @@ class Paginator
                 if($entity_metadata->getTypeOfField($key) == 'boolean'){
                     // Mapping boolean values
                     if(in_array($value, $this->booleanFalseValues)){
+                        // True mapped value
                         $value = '0';
                     }else if(in_array($value, $this->booleanTrueValues)){
+                        // False mapped value
                         $value = '1';
+                    }else{
+                        // Invalid mapped value, the value is ignored
+                        $value = '-1';
                     }
 
                     $this->query->setParameter($reference, $value);
