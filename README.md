@@ -89,8 +89,8 @@ You can think about this how a conditional structure:
 
 ###### STRUCTURE
 
-Search and filters have the same structure, an array with key => value.  
-The key is the name of the entity field, the value is ... obviusly the value.
+Search and filters have the same structure, an array with key **=>** value.  
+The key is the name of the entity field, the value is ... obviously the value.
 
 So if you have the following entity:
 
@@ -144,8 +144,8 @@ You can make, for example:
 ```
 
 ###### ASSOCIATIONS
-Ok, thats great! But what about entity associations?
-This User class have a many to many association with groups, and I want to filter by them!  
+Ok, **thats great!** But what about entity associations?
+This **User** class have a **many to many** association with groups, and I want to filter by them!  
   
 Ok, no problem, suppose the following entity:
 
