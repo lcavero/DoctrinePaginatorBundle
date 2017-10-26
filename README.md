@@ -6,7 +6,7 @@ It is ideal for returning paged datasets, including searching and filtering data
 
 ## Table of Contents
 
-1. [Installation] (#instalation)
+1. [Installation] (#installation)
 
 Installation
 ------------
