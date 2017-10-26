@@ -6,7 +6,17 @@ It is ideal for returning paged datasets, including searching and filtering data
 
 ## Table of Contents
 
-1. [Installation] (#installation)
+1. [Installation](#installation)
+2. [Basic Usage](#basic-usage)
+3. [Pagination Results](#pagination-results)
+4. [Search and Filters](#search-and-filters)
+4.1 [Behavior](#behavior)
+4.2 [Structure](#structure)
+4.3 [Associations](#associations)
+4.4 [Assocations and ORDER BY](#associations-and-order-by)
+5 [Configuration](#configuration)
+5.1 [Accepted Boolean values](#accepted-boolean-values)
+5.2 [Strict mode](#strict-mode)
 
 Installation
 ------------
@@ -196,7 +206,12 @@ You can use the above sintax to order by an association field, but don't forget 
 
 Configuration
 -------------
+
+###### ACCEPTED BOOLEAN VALUES
+
 You can define the accepted boolean values, that means, by default if you search on a boolean field with a not-boolean value, the search is ignored (the DQL sentence searchs for -1 value instead 0/1). Maybe you want define your own accepted boolean values.
+
+###### STRICT MODE
 
 You can also enable/disable the *strict mode*. By defaults, if you search *"Hello World"*, the DQL sentence searchs for the words *"Hello"*, *"World"* and *"Hello World"*, but you can dissable it enabling the *strict mode*. That means, only *"Hello World"* can matchs.
 
