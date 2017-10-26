@@ -49,7 +49,7 @@ class MyController
         // Create the Query
         $query = $entity_manager->createQuery($dql);
         
-        // Define paginator options (page, per_page, order, order_by)
+        // Define paginator options (page, per_page, order, order_by, search, filters)
         $opts = new PaginatorOptions(4, 10, 'asc', 'id');
         
         // Paginate the data, this returns an array with the data and other interesting info
