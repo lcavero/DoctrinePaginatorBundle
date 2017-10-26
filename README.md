@@ -38,6 +38,7 @@ Basic usage
 -----------
 ```php
 use LCavero\DoctrinePaginatorBundle\Paginator\PaginatorOptions;
+
 class MyController
 {
     public function getUsersAction()
@@ -51,7 +52,7 @@ class MyController
         // Define paginator options (page, per_page, order, order_by)
         $opts = new PaginatorOptions(4, 10, 'asc', 'id');
         
-        // Paginate the data, this returns an array with the data and other info
+        // Paginate the data, this returns an array with the data and other interesting info
         $pagination = $container->get('lcav_doctrine_paginator')->paginate($query, $opts);
         
         // Now you have the users paginated and filtered, you can return them or do something amazing
