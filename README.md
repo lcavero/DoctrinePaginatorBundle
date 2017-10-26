@@ -35,6 +35,7 @@ What does this bundle?
 It converts an initial DQL sentence to a paginated sentence based on the paginator and search options.
 
 Basic usage
+===========
 ```php
 use LCavero\DoctrinePaginatorBundle\Paginator\PaginatorOptions;
 class MyController
