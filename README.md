@@ -4,6 +4,10 @@ DoctrinePaginatorBundle
 DoctrinePaginatorBundle bundle allows you to page your DQL statements.   
 It is ideal for returning paged datasets, including searching and filtering data. 
 
+## Table of Contents
+
+1. [Installation] (#instalation)
+
 Installation
 ------------
 You can install it using composer
