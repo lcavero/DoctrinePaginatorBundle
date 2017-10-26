@@ -144,8 +144,9 @@ You can make, for example:
 ```
 
 ###### ASSOCIATIONS
-Ok, thats great! But what about entity associations?  
+Ok, thats great! But what about entity associations?
 This User class have a many to many association with groups, and I want to filter by them!  
+  
 Ok, no problem, suppose the following entity:
 
 ```php
