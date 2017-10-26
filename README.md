@@ -78,9 +78,62 @@ That info it's ussually interesting to display pagination options in a frontend
 Search and Filters
 ------------------
 
+###### BEHAVIOR
+
 Filters and search are similar, the difference is that a search is a set of conditions that at least one of them must match, however, each filter must match.
 You can think about this how a conditional structure:
 
 ```
     (STANDARD SENTENCE) AND (FILTER 1 AND FILTER 2) AND (SEARCH 1 OR SEARCH 2)
+```
+
+###### STRUCTURE
+
+Search and filters have the same structure, an array with key => value.
+The key is the name of the entity field, the value is ... obviusly the value.
+
+So if you have the following entity:
+
+```php
+class User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     */
+    protected $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
+    
+    // ..
+}
+```
+You can make, for example:
+
+```php
+    // Returns users which email contains *lcavero* **or** which name contains *luis* (case insensitive)
+    $search = ['email' => 'lcavero', 'name' => 'Luis'];
+    
+    // Returns users which email contains *roma* **and** which name contains *susana*
+    $filters = ['email' => 'roma', 'name' => 'Susana'];
+    
+    // Returns users which email contains *maria* **and** whitch name contains *paula* and can optionally contains *Jonh*
+    $search = ['email' => 'maria', 'name' => 'Jonh'];
+    $filters = ['name' => 'Paula'];
+    
 ```
