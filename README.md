@@ -120,6 +120,11 @@ class User
      */
     protected $name;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Group", mappedBy="users")
+     */
+    private $groups;
+    
     // ..
 }
 ```
@@ -137,3 +142,49 @@ You can make, for example:
     $filters = ['name' => 'Paula'];
     
 ```
+
+###### ASSOCIATIONS
+Ok, thats great! But what about entity associations?
+This User class have a many to many association with groups, and I want to filter by them!
+Ok, no problem, suppose the following entity:
+
+```php
+class Group
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="groups")
+     */
+    private $users;
+    // ..
+}
+```
+
+As you can see, a group can be represented by the field **name**, so I want to filter by the groups name, and a User has a field **groups** to makes the association possible.
+So ... if you want filter the users whose groups are named *GroupA*, you should do:
+
+```php
+    // You can do it also with search and order_by
+    $filter = ['groups.name' => 'GroupA']
+```
+
+That's All! You can do it with any type of association (1-1, 1-N, N-M ....).
+
+
+###### ASSOCIATIONS AND ORDER BY
+You can use the above sintax to order by an association field, but don't forget that you can only order by One-to-One or Many-to-One associations.
