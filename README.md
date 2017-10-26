@@ -1,7 +1,7 @@
 DoctrinePaginatorBundle
 =======================
 
-DoctrinePaginatorBundle bundle allows you to page your DQL statements. 
+DoctrinePaginatorBundle bundle allows you to page your DQL statements.   
 It is ideal for returning paged datasets, including searching and filtering data. 
 
 Installation
@@ -80,7 +80,7 @@ Search and Filters
 
 ###### BEHAVIOR
 
-Filters and search are similar, the difference is that a search is a set of conditions that at least one of them must match, however, each filter must match.
+Filters and search are similar, the difference is that a search is a set of conditions that at least one of them must match, however, each filter must match.  
 You can think about this how a conditional structure:
 
 ```
@@ -89,7 +89,7 @@ You can think about this how a conditional structure:
 
 ###### STRUCTURE
 
-Search and filters have the same structure, an array with key => value.
+Search and filters have the same structure, an array with key => value.  
 The key is the name of the entity field, the value is ... obviusly the value.
 
 So if you have the following entity:
@@ -144,8 +144,8 @@ You can make, for example:
 ```
 
 ###### ASSOCIATIONS
-Ok, thats great! But what about entity associations?
-This User class have a many to many association with groups, and I want to filter by them!
+Ok, thats great! But what about entity associations?  
+This User class have a many to many association with groups, and I want to filter by them!  
 Ok, no problem, suppose the following entity:
 
 ```php
@@ -175,7 +175,7 @@ class Group
 }
 ```
 
-As you can see, a group can be represented by the field **name**, so I want to filter by the groups name, and a User has a field **groups** to makes the association possible.
+As you can see, a group can be represented by the field **name**, so I want to filter by the groups name, and a User has a field **groups** to makes the association possible.  
 So ... if you want filter the users whose groups are named *GroupA*, you should do:
 
 ```php
