@@ -1,6 +1,6 @@
 {
-    "name": "lcavero/doctrinepaginatorbundle",
-    "description": "Generate DQL paginated sentences",
+    "name": "lcavero/doctrine-paginator-bundle",
+    "description": "Paginate DQL sentences",
     "keywords": ["dql", "paginator", "pagination"],
     "license": "MIT",
     "type": "symfony-bundle",
