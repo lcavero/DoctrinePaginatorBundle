@@ -127,13 +127,13 @@ You can make, for example:
 
 ```php
     // Returns users which email contains lcavero or which name contains luis (case insensitive)
-    $search = ['email' => 'lcavero', 'name' => 'Luis'];
+    $search  = ['email' => 'lcavero', 'name' => 'Luis'];
     
     // Returns users which email contains roma and which name contains susana
     $filters = ['email' => 'roma', 'name' => 'Susana'];
     
     // Returns users which email contains maria and whitch name contains paula and can optionally contains Jonh
-    $search = ['email' => 'maria', 'name' => 'Jonh'];
+    $search  = ['email' => 'maria', 'name' => 'Jonh'];
     $filters = ['name' => 'Paula'];
     
 ```
