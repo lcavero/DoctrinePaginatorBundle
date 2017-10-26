@@ -1,7 +1,7 @@
 DoctrinePaginatorBundle
 =======================
 
-DoctrinePaginatorBundle bundle allows you to page your DQL statements.   
+The **DoctrinePaginatorBundle** bundle allows you to page your DQL statements.   
 It is ideal for returning paged datasets, including searching and filtering data. 
 
 ## Table of Contents
