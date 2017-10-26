@@ -14,7 +14,7 @@ It is ideal for returning paged datasets, including searching and filtering data
     4.2 [Structure](#structure)  
     4.3 [Associations](#associations)  
     4.4 [Assocations and ORDER BY](#associations-and-order-by)  
-5 [Configuration](#configuration)  
+5. [Configuration](#configuration)  
     5.1 [Accepted Boolean values](#accepted-boolean-values)  
     5.2 [Strict mode](#strict-mode)
 
