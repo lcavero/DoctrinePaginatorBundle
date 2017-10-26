@@ -62,3 +62,24 @@ class MyController
     }
 }
 ```
+
+Pagination results
+------------------
+
+Calling **paginate** returns some interesting info:
+    - data: An array with the paginated result
+    - count: Total number of items (filtered but not paged)
+    - current_page: The current page
+    - total_pages: Total number of pages of the filtered result
+    - per_page: Items by page
+    
+That info it's ussually interesting to display pagination options in a frontend
+
+Search and Filters
+------------------
+
+Filters and search are similar, the difference is that a search is a set of conditions that at least one of them must match, however, each filter must match.
+You can think about this how a conditional structure:
+````
+    (STANDARD SENTENCE) AND (FILTER 1 AND FILTER 2) AND (SEARCH 1 OR SEARCH 2)
+```
