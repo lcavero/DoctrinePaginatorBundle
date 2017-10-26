@@ -194,7 +194,7 @@ Configuration
 -------------
 You can define the accepted boolean values, that means, by default if you search on a boolean field with a not-boolean value, the search is ignored (the DQL sentence searchs for -1 value instead 0/1). Probabbly you wants define your own accepted boolean values.
 
-You can also enable/disable the *strict mode*. By defaults, if you search *"Hello World"*, the DQL sentence searchs for the words *"Hello"*, *"World"* and *"Hello World"*, but you can dissable it enabling strict mode. That means, only *"Hello World"* can matchs.
+You can also enable/disable the *strict mode*. By defaults, if you search *"Hello World"*, the DQL sentence searchs for the words *"Hello"*, *"World"* and *"Hello World"*, but you can dissable it enabling the *strict mode*. That means, only *"Hello World"* can matchs.
 
 ```yaml
 # app/config/config.yml
