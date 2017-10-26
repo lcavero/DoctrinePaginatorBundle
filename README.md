@@ -184,8 +184,8 @@ So ... if you want filter the users whose groups are named *GroupA*, you should 
     $filter = ['groups.name' => 'GroupA']
 ```
 
-That's All! You can do it with any type of association (1-1, 1-N, N-M ....).
+**That's All!** You can do it with any type of association (1-1, 1-N, N-M ....).
 
 
 ###### ASSOCIATIONS AND ORDER BY
-You can use the above sintax to order by an association field, but don't forget that you can only order by One-to-One or Many-to-One associations.
+You can use the above sintax to order by an association field, but don't forget that you can only order by **One-to-One** or **Many-to-One** associations.
