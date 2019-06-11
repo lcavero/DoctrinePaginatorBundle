@@ -107,7 +107,9 @@ class Paginator
         /** ============ DQL Extractions ============ */
 
         // Look for rootEntity, rootAlias and left joins analyzing the query
+
         $this->configureRootSettings($dql);
+
 
         // Extracts the mandatory order by to add it later
         $this->extractMandatoryOrderBy($dql);
@@ -115,9 +117,9 @@ class Paginator
         // Extracts the mandatory group by to add it later
         $this->extractMandatoryGroupBy($dql);
 
+
         // Extracts the mandatory where by to add it later
         $this->extractMandatoryWhere($dql);
-
 
         /** ============ DQL Generation ============ */
 
@@ -143,6 +145,8 @@ class Paginator
         $dql .= $this->associationJoinsDql;
 
         // Adds mandatory Where
+
+
         if($this->mandatoryWhereDql){
             $dql .= ' WHERE (' . $this->mandatoryWhereDql . ')';
         }
@@ -159,6 +163,7 @@ class Paginator
             // Adds the filter sentence
             $dql .= $filter_sentence;
         }
+
 
         // Adds search
         if($search){
@@ -178,8 +183,10 @@ class Paginator
             $dql .= $search_sentence;
         }
 
+
         // Adds the group by sentence
         $dql .= $this->generateGroupBySentence();
+
 
         // Adds mandatory or requested order by
         if(!$this->mandatoryOrderByDql && isset($order_by_sentence)){
@@ -190,6 +197,8 @@ class Paginator
 
         // Make dql more pretty (removing multiple spaces)
         $this->makePrettyDql($dql);
+
+
 
         /** ============ Pagination Configs ============ */
 
@@ -236,17 +245,20 @@ class Paginator
             $group_by_sentence = $this->mandatoryGroupByDql;
         }
 
-        // Search mandatory group by sentences
-        preg_match_all('/' . $this->rootAlias . '\.[^,\s]+/', $this->mandatoryGroupByDql, $group_by_matches);
+        if(!$this->mandatoryGroupByDql){
+            // Search mandatory group by sentences
+            preg_match_all('/' . $this->rootAlias . '\.[^,\s]+/', $this->mandatoryGroupByDql, $group_by_matches);
 
-        // We need ensure group by entity indexes to evade left join redundance problems
-        for($i = 0; $i < count($this->rootIdentifiers); $i++){
-            // Include group by indexes if there are not included yet
-            if(!$group_by_matches || (!in_array($this->rootAlias . '.' . $this->rootIdentifiers[$i], $group_by_matches[0]))) {
-                if($this->mandatoryGroupByDql || ($i > 0)) {
-                    $group_by_sentence = ', ';
+            // We need ensure group by entity indexes to evade left join redundance problems
+            for($i = 0; $i < count($this->rootIdentifiers); $i++){
+                // Include group by indexes if there are not included yet
+                if(!$group_by_matches || (!in_array($this->rootAlias . '.' . $this->rootIdentifiers[$i], $group_by_matches[0]))) {
+                    if($this->mandatoryGroupByDql || ($i > 0)) {
+                        // LE HE PUESTO ESTE PUNTO
+                        $group_by_sentence .= ', ';
+                    }
+                    $group_by_sentence .= ' ' . $this->rootAlias . '.' . $this->rootIdentifiers[$i];
                 }
-                $group_by_sentence .= ' ' . $this->rootAlias . '.' . $this->rootIdentifiers[$i];
             }
         }
 
@@ -512,12 +524,33 @@ class Paginator
     private function configureRootSettings($dql)
     {
         // Matchs the first FROM sentence
-        preg_match('/FROM\s+\S+\s+\S+\s?/i', $dql, $from_matches);
+        preg_match_all('/FROM\s+\S+\s+\S+\s+/i', $dql, $from_matches, PREG_OFFSET_CAPTURE);
         if(count($from_matches) < 1){
             throw new \Exception('You should define a FROM sentence with the following structure: FROM [RootEntity] [RootAlias]');
         }else {
+
+            $matches = $from_matches[0];
+
+            $substr = '';
+            foreach ($matches as $match) {
+                $count_parhentesis = 0;
+                $offset = $match[1];
+                foreach (str_split(substr($dql, 0, $offset)) as $letter){
+                    if($letter == '('){
+                        $count_parhentesis++;
+                    }else if($letter == ')'){
+                        $count_parhentesis--;
+                    }
+                }
+                if($count_parhentesis == 0){
+                    $substr = $match[0];
+                    break;
+                }
+            }
+
+
+
             // Split the FROM sentence in words
-            $substr = $from_matches[0];
 
             $substr = preg_replace('!\s+!', ' ', $substr);
 
@@ -533,7 +566,9 @@ class Paginator
                 throw new \Exception('Invalid alias ' . $alias . ' you can not use the following alias: '
                     . implode(", ", $invalid_aliases));
             }
+
             $this->rootAlias = $alias;
+
         }
 
         // Initialice mandatory left joins
@@ -604,13 +639,39 @@ class Paginator
     private function extractMandatoryWhere(&$dql)
     {
         $str = 'WHERE';
-        $where_pos = stripos($dql, $str);
 
-        if($where_pos !== false){
-            // Saves the sentence (ignoring WHERE keyword)
-            $this->mandatoryWhereDql = substr($dql, $where_pos + strlen($str));
-            // Extracts the full where sentence of the DQL
-            $dql = substr($dql, 0, $where_pos);
+        preg_match_all('/WHERE/i', $dql, $where_matches, PREG_OFFSET_CAPTURE);
+        if(count($where_matches) > 0) {
+
+            $matches = $where_matches[0];
+
+            $where_pos = false;
+            $where_lenght = 0;
+            foreach ($matches as $match) {
+                $count_parhentesis = 0;
+                $offset = $match[1];
+                foreach (str_split(substr($dql, 0, $offset)) as $letter) {
+                    if ($letter == '(') {
+                        $count_parhentesis++;
+                    } else if ($letter == ')') {
+                        $count_parhentesis--;
+                    }
+                }
+                if ($count_parhentesis == 0) {
+                    $where_pos = $offset + strlen($match[0]);
+                    $where_lenght = strlen($match[0]);
+                    break;
+                }
+            }
+
+            if ($where_pos !== false) {
+                // Saves the sentence (ignoring WHERE keyword)
+
+                $this->mandatoryWhereDql = substr($dql, $where_pos);
+
+                // Extracts the full where sentence of the DQL
+                $dql = substr($dql, 0, $where_pos - $where_lenght);
+            }
         }
     }
 }
